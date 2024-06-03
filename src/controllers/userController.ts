@@ -10,32 +10,32 @@ const generateToken = (id: String) => {
   });
 };
 
-export const register = async (req: Request, res: Response) => {
-  try {
-    const { name, email, password } = req.body;
+// export const register = async (req: Request, res: Response) => {
+//   try {
+//     const { name, email, password } = req.body;
 
-    if (await userModel.findOne({ email })) {
-      res.status(400).json({ error: "User already exists" });
-    }
+//     if (await userModel.findOne({ email })) {
+//       res.status(400).json({ error: "User already exists" });
+//     }
 
-    const hashPassword = await bcrypt.hash(password, 10);
+//     const hashPassword = await bcrypt.hash(password, 10);
 
-    const user = await userModel.create({
-      name: name,
-      email: email,
-      password: hashPassword,
-    });
+//     const user = await userModel.create({
+//       name: name,
+//       email: email,
+//       password: hashPassword,
+//     });
 
-    user.password = "";
-    const token = generateToken(user.id);
+//     user.password = "";
+//     const token = generateToken(user.id);
 
-    res.status(201).json({ user: user, token: token });
-  } catch (error) {
-    console.log(error);
+//     res.status(201).json({ user: user, token: token });
+//   } catch (error) {
+//     console.log(error);
 
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -59,12 +59,12 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const me = async (req: Request, res: Response) => {
-  try {
-    const userId = req.userId;
-    const user = await userModel.find({ _id: userId }).select("-password");
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ error: "Internal server error" });
-  }
-};
+// export const me = async (req: Request, res: Response) => {
+//   try {
+//     const userId = req.userId;
+//     const user = await userModel.find({ _id: userId }).select("-password");
+//     res.status(200).json(user);
+//   } catch (error) {
+//     res.status(500).json({ error: "Internal server error" });
+//   }
+// };
